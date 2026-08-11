@@ -1,0 +1,18 @@
+# 敏感信息
+.env
+
+# 数据/索引（可重新生成）
+chroma_data/
+papers_chroma_data/
+__pycache__/
+*.pyc
+
+# 缓存
+.pytest_cache/
+
+# IDE
+.idea/
+venv/
+
+# 练习文件（学习过程，不上传）
+_archive/

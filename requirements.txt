@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+pyodbc
+pydantic
+python-dotenv
+passlib
+bcrypt
+python-jose
+tenacity
+chromadb
+requests
