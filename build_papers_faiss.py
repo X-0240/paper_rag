@@ -7,10 +7,9 @@ import numpy as np
 from sentence_transformers import SentenceTransformer
 
 #论文PDF目录
-papers_dir=r"D:\Users\徐海生\Documents\agent项目\papers_pdf"
+papers_dir=os.getenv("PAPERS_DIR")
 #多语言模型
-model=SentenceTransformer(r"D:\Users\徐海生\Documents\agent项目\multi-minilm-model")
-
+model=SentenceTransformer(os.getenv("MODEL_PATH"))
 #识别章节标题
 def is_heading(block):
     t=block.strip().replace("\n"," ")
@@ -87,7 +86,7 @@ index=faiss.IndexFlatIP(dim)
 index.add(embeddings.astype("float32"))
 
 #持久化：索引+元数据
-base=r"C:\Users\Public\papers_faiss"
+base=os.getenv("FAISS_PATH")
 faiss.write_index(index,base+".faiss")
 with open(base+".json","w",encoding="utf-8") as f:
     json.dump({"sources":sources,"sections":sections,"documents":all_chunks},f,ensure_ascii=False)

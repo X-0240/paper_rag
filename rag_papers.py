@@ -13,7 +13,7 @@ logging.basicConfig(level=logging.INFO)
 logger=logging.getLogger(__name__)
 
 #FAISS索引+元数据（英文路径）
-FAISS_PATH=r"C:\Users\Public\papers_faiss"
+FAISS_PATH=os.getenv("FAISS_PATH")
 index=faiss.read_index(FAISS_PATH+".faiss")
 meta=json.load(open(FAISS_PATH+".json",encoding="utf-8"))
 sources=meta["sources"]
@@ -21,7 +21,7 @@ sections=meta["sections"]
 documents=meta["documents"]
 
 #多语言模型（中文问题检索英文论文）
-model=SentenceTransformer(r"D:\Users\徐海生\Documents\agent项目\multi-minilm-model")
+model=SentenceTransformer(os.getenv("MODEL_PATH"))
 
 #DeepSeek配置
 api_key=os.getenv("DEEPSEEK_API_KEY")

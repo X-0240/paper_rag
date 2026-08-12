@@ -42,7 +42,7 @@ security=HTTPBearer(auto_error=False)
 fake_users_db={}
 
 #加载FAISS索引+元数据
-FAISS_PATH=r"C:\Users\Public\papers_faiss"
+FAISS_PATH=os.getenv("FAISS_PATH")
 index=faiss.read_index(FAISS_PATH+".faiss")
 meta=json.load(open(FAISS_PATH+".json",encoding="utf-8"))
 sources=meta["sources"]
@@ -50,8 +50,7 @@ sections=meta["sections"]
 documents=meta["documents"]
 
 #多语言模型（启动时加载一次，常驻内存）
-model=SentenceTransformer(r"D:\Users\徐海生\Documents\agent项目\multi-minilm-model")
-
+model=SentenceTransformer(os.getenv("MODEL_PATH"))
 #DeepSeek配置
 api_key=os.getenv("DEEPSEEK_API_KEY")
 headers={

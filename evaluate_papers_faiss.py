@@ -3,23 +3,26 @@ import json
 import faiss
 import numpy as np
 from sentence_transformers import SentenceTransformer
+import os
+from dotenv import load_dotenv
 
+load_dotenv()
 #加载索引+元数据
-base=r"C:\Users\Public\papers_faiss"
+base=os.getenv("FAISS_PATH")
 index=faiss.read_index(base+".faiss")
 meta=json.load(open(base+".json",encoding="utf-8"))
 sources=meta["sources"]
 sections=meta["sections"]
-model=SentenceTransformer(r"D:\Users\徐海生\Documents\agent项目\multi-minilm-model")
+model=SentenceTransformer(os.getenv("MODEL_PATH"))
 
 #读取100题（问题+原始引用）
-q_file=r"C:\Users\徐海生\.codex\attachments\fecb0a01-84bc-4dfc-a920-50da471dd825\pasted-text.txt"
+q_file=os.getenv("TEST_QUESTIONS_FILE")
 content=open(q_file,encoding="utf-8").read()
 questions=re.findall(r"问题：(.+)",content)
 orig_refs=re.findall(r"引用来源：(.+)",content)
 
 #读取修正引用
-v_file=r"C:\Users\徐海生\.codex\attachments\a9eb6673-f6d6-40a1-a5d5-ea125acd5d86\pasted-text.txt"
+v_file=os.getenv("TEST_REFERENCES_FILE")
 v_content=open(v_file,encoding="utf-8").read()
 fixed_refs=[]
 for block in re.split(r"(?=第\d+题)",v_content):
