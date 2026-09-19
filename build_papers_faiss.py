@@ -5,7 +5,9 @@ import fitz
 import faiss
 import numpy as np
 from sentence_transformers import SentenceTransformer
+from dotenv import load_dotenv
 
+load_dotenv()
 #论文PDF目录
 papers_dir=os.getenv("PAPERS_DIR")
 #多语言模型
@@ -46,7 +48,7 @@ def extract_sections(pdf_path):
     doc.close()
     return sections
 
-#切片
+#切片（固定长度+重叠；语义切实验曾致论文级HitRate@5从93%降到92%，已回退）
 def chunk_section(text,chunk_size=500,overlap=100):
     chunks=[]
     start=0
